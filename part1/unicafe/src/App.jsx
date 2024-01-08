@@ -4,10 +4,18 @@ const Header = (props) => <h1>{props.name}</h1>
 
 const Button = (props) => <button onClick={props.handler}>{props.text}</button> 
 
-const DisplayStats = (props) => {
-  return(
+const DisplayStats = (props) => <div>{props.name} {props.value}</div>
+
+const Statistics = (props) => {
+  return (
     <div>
-        {props.name} {props.value}
+      <Header name="statistics" />
+      <DisplayStats name="good" value={props.good}/>
+      <DisplayStats name="neutral" value={props.neutral}/>
+      <DisplayStats name="bad" value={props.bad}/>
+      <DisplayStats name="all" value={props.good + props.neutral + props.bad}/>
+      <DisplayStats name="average" value={((props.good * 1) + (props.bad * -1))/(props.good + props.neutral + props.bad)}/>
+      <DisplayStats name="positive" value={props.good/(props.good + props.neutral + props.bad)}/>
     </div>
   )
 }
@@ -41,13 +49,7 @@ const App = () => {
       <Button handler={goodHandler} text="good" />
       <Button handler={neutralHandler} text="neutral" />
       <Button handler={badHandler} text="bad" />
-      <Header name="statistics" />
-      <DisplayStats name="good" value={good}/>
-      <DisplayStats name="neutral" value={neutral}/>
-      <DisplayStats name="bad" value={bad}/>
-      <DisplayStats name="all" value={good + neutral + bad}/>
-      <DisplayStats name="average" value={((good * 1) + (bad * -1))/(good + neutral + bad)}/>
-      <DisplayStats name="positive" value={good/(good+neutral+bad)}/>
+      <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
 }
