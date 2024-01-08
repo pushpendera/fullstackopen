@@ -4,7 +4,7 @@ const Header = (props) => <h1>{props.name}</h1>
 
 const Button = (props) => <button onClick={props.handler}>{props.text}</button> 
 
-const StatisticLine = (props) => <div>{props.name} {props.value}</div>
+const StatisticLine = (props) => <div><table><tbody><tr><td width="50px">{props.name}</td><td width="100px">{props.value}</td></tr></tbody></table></div>
 
 const Statistics = (props) => {
   if (props.good > 0 || props.neutral > 0 || props.bad > 0){
@@ -15,8 +15,8 @@ const Statistics = (props) => {
         <StatisticLine name="neutral" value={props.neutral}/>
         <StatisticLine name="bad" value={props.bad}/>
         <StatisticLine name="all" value={props.good + props.neutral + props.bad}/>
-        <StatisticLine name="average" value={((props.good * 1) + (props.bad * -1))/(props.good + props.neutral + props.bad)}/>
-        <StatisticLine name="positive" value={props.good/(props.good + props.neutral + props.bad)}/>
+        <StatisticLine name="average" value={Math.round((((props.good * 1) + (props.bad * -1))/(props.good + props.neutral + props.bad)) * 100) / 100 }/>
+        <StatisticLine name="positive" value={Math.round((props.good * 10000/(props.good + props.neutral + props.bad)))/100 + " %"}/>
       </div>
     )
   }
