@@ -7,17 +7,27 @@ const Button = (props) => <button onClick={props.handler}>{props.text}</button>
 const DisplayStats = (props) => <div>{props.name} {props.value}</div>
 
 const Statistics = (props) => {
-  return (
-    <div>
-      <Header name="statistics" />
-      <DisplayStats name="good" value={props.good}/>
-      <DisplayStats name="neutral" value={props.neutral}/>
-      <DisplayStats name="bad" value={props.bad}/>
-      <DisplayStats name="all" value={props.good + props.neutral + props.bad}/>
-      <DisplayStats name="average" value={((props.good * 1) + (props.bad * -1))/(props.good + props.neutral + props.bad)}/>
-      <DisplayStats name="positive" value={props.good/(props.good + props.neutral + props.bad)}/>
-    </div>
-  )
+  if (props.good > 0 || props.neutral > 0 || props.bad > 0){
+    return (
+      <div>
+        <Header name="statistics" />
+        <DisplayStats name="good" value={props.good}/>
+        <DisplayStats name="neutral" value={props.neutral}/>
+        <DisplayStats name="bad" value={props.bad}/>
+        <DisplayStats name="all" value={props.good + props.neutral + props.bad}/>
+        <DisplayStats name="average" value={((props.good * 1) + (props.bad * -1))/(props.good + props.neutral + props.bad)}/>
+        <DisplayStats name="positive" value={props.good/(props.good + props.neutral + props.bad)}/>
+      </div>
+    )
+  }
+  else {
+    return (
+      <div>
+        <Header name="statistics" />
+        <p>No feedback given</p>
+      </div>
+    )
+  }
 }
 
 const App = () => {
