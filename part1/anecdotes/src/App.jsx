@@ -1,5 +1,18 @@
 import { useState } from 'react'
 
+const Header = (props) => <h1>{props.text}</h1>
+const Display = (props) => {
+  console.log(props)
+  return (
+    <div>
+      {props.anecdotes[props.selected]}<br></br>
+      has {props.points[props.selected]} votes<br></br>
+    </div>
+  )
+}
+
+const Button = (props) => <button onClick={props.handler}>{props.text}</button>
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -19,7 +32,18 @@ const App = () => {
     let randomState = Math.floor(Math.random() * anecdotes.length)
     console.log(randomState)
     setSelected(randomState)
+    let maxAt = 0, max=points[0]
+    for(let i = 0; i < points.length; i++){
+      if (points[i] > max){
+        maxAt = i
+        max = points[i]
+      }
+    }
+    console.log("Maximum votes at " + maxAt, points)
+    setMaxSelected(maxAt)
   }
+
+  const [maxSelected, setMaxSelected] = useState(0)
 
   function createInitialPoints() {
     const initialPoints = []
@@ -38,14 +62,26 @@ const App = () => {
     console.log("points after voting" + copyPoints)
     setPoints(copyPoints)
     console.log(points)
+
+    let maxAt = 0, max=points[0]
+    for(let i = 0; i < copyPoints.length; i++){
+      if (copyPoints[i] > max){
+        maxAt = i
+        max = copyPoints[i]
+      }
+    }
+    console.log("Maximum votes at " + maxAt, copyPoints)
+    setMaxSelected(maxAt)
   }
 
   return (
     <div>
-      {anecdotes[selected]}<br></br>
-      has {points[selected]} votes<br></br>
-      <button onClick={vote}>vote</button>
-      <button onClick={updateState} >next anecdotes</button>
+      <Header text="Anecdote of the day"/>
+      <Display anecdotes={anecdotes} points={points} selected={selected} />
+      <Button handler={vote} text="vote"/>
+      <Button handler={updateState} text="next anecdotes"/>
+      <Header text="Anecdote with most votes"/>
+      <Display anecdotes={anecdotes} points={points} selected={maxSelected} />
     </div>
   )
 }
