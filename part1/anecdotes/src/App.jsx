@@ -12,16 +12,39 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
    
-  const [selected, setSelected] = useState(1)
+  const [points, setPoints] = useState(createInitialPoints); 
+
+  const [selected, setSelected] = useState(0)
   const updateState = () => {
     let randomState = Math.floor(Math.random() * anecdotes.length)
     console.log(randomState)
     setSelected(randomState)
   }
 
+  function createInitialPoints() {
+    const initialPoints = []
+    for (let i=0; i<anecdotes.length; i++){
+      initialPoints[i]=0
+    }
+    console.log("init length of array = " + initialPoints.length)
+    return initialPoints;
+  }
+
+  const vote = (props) => {
+    console.log("in vote -> "+selected, points)
+    var copyPoints = [...points]
+    console.log("copied points = " + copyPoints + copyPoints.length)
+    copyPoints[selected] += 1
+    console.log("points after voting" + copyPoints)
+    setPoints(copyPoints)
+    console.log(points)
+  }
+
   return (
     <div>
       {anecdotes[selected]}<br></br>
+      has {points[selected]} votes<br></br>
+      <button onClick={vote}>vote</button>
       <button onClick={updateState} >next anecdotes</button>
     </div>
   )
