@@ -2,7 +2,6 @@ import { useState } from 'react'
 
 const Header = (props) => <h1>{props.text}</h1>
 const Display = (props) => {
-  console.log(props)
   return (
     <div>
       {props.anecdotes[props.selected]}<br></br>
@@ -39,7 +38,6 @@ const App = () => {
         max = points[i]
       }
     }
-    console.log("Maximum votes at " + maxAt, points)
     setMaxSelected(maxAt)
   }
 
@@ -50,18 +48,13 @@ const App = () => {
     for (let i=0; i<anecdotes.length; i++){
       initialPoints[i]=0
     }
-    console.log("init length of array = " + initialPoints.length)
     return initialPoints;
   }
 
   const vote = (props) => {
-    console.log("in vote -> "+selected, points)
     var copyPoints = [...points]
-    console.log("copied points = " + copyPoints + copyPoints.length)
     copyPoints[selected] += 1
-    console.log("points after voting" + copyPoints)
     setPoints(copyPoints)
-    console.log(points)
 
     let maxAt = 0, max=points[0]
     for(let i = 0; i < copyPoints.length; i++){
@@ -70,7 +63,6 @@ const App = () => {
         max = copyPoints[i]
       }
     }
-    console.log("Maximum votes at " + maxAt, copyPoints)
     setMaxSelected(maxAt)
   }
 
